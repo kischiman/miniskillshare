@@ -13,7 +13,7 @@ if (!rootElement) {
 createRoot(rootElement).render(
   <StrictMode>
     <ErrorBoundary>
-      <App />
+    <App />
     </ErrorBoundary>
   </StrictMode>,
 )

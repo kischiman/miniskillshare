@@ -244,6 +244,101 @@ const initialData = [
     telegram: '',
     email: '',
     price: ''
+  },
+  
+  // Jordi Pinyana's offerings
+  {
+    id: '18',
+    name: 'Jordi Pinyana',
+    category: 'offer',
+    services: 'Digital Voting and Participation Systems',
+    skills: '',
+    needs: null,
+    type: 'offer',
+    description: 'Knowledge around digital voting and participation with real world experience in organizations with governance needs',
+    telegram: '',
+    email: '',
+    price: ''
+  },
+  {
+    id: '19',
+    name: 'Jordi Pinyana',
+    category: 'offer',
+    services: 'Backend and Smart Contract Programming',
+    skills: '',
+    needs: null,
+    type: 'offer',
+    description: 'Programming expertise in backend systems and smart contracts',
+    telegram: '',
+    email: '',
+    price: ''
+  },
+  {
+    id: '20',
+    name: 'Jordi Pinyana',
+    category: 'offer',
+    services: 'End-to-End Voting System',
+    skills: '',
+    needs: null,
+    type: 'offer',
+    description: 'An end to end voting system with all the democratic guarantees for online participation',
+    telegram: '',
+    email: '',
+    price: ''
+  },
+  
+  // Anastasia's offerings
+  {
+    id: '21',
+    name: 'Anastasia',
+    category: 'offer',
+    services: 'Safe Space Creation and Collaboration',
+    skills: '',
+    needs: null,
+    type: 'offer',
+    description: 'Creating and sustaining safe spaces for people to co-live and collaborate (e.g. DAO Palace)',
+    telegram: '',
+    email: '',
+    price: ''
+  },
+  {
+    id: '22',
+    name: 'Anastasia',
+    category: 'offer',
+    services: 'Organization and Coordination',
+    skills: '',
+    needs: null,
+    type: 'offer',
+    description: 'Organizational and coordination skills for teams and projects',
+    telegram: '',
+    email: '',
+    price: ''
+  },
+  {
+    id: '23',
+    name: 'Anastasia',
+    category: 'offer',
+    services: 'Business Development and Growth',
+    skills: '',
+    needs: null,
+    type: 'offer',
+    description: 'BD and growth for tech start-ups',
+    telegram: '',
+    email: '',
+    price: ''
+  },
+  {
+    id: '24',
+    name: 'Anastasia',
+    category: 'offer',
+    services: 'Go-to-Market Strategy',
+    skills: '',
+    needs: null,
+    type: 'offer',
+    description: 'GTM, fundraising pitching strategy',
+    telegram: '',
+    email: '',
+    price: ''
   }
 ];
 

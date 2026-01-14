@@ -10,7 +10,9 @@ const AdminPage = ({ onPageChange }) => {
     description: '',
     telegram: '',
     email: '',
-    price: ''
+    price: '',
+    location: '',
+    remote: false
   });
 
   const handleSubmit = (e) => {
@@ -25,6 +27,7 @@ const AdminPage = ({ onPageChange }) => {
       telegram: formData.telegram,
       email: formData.email,
       price: formData.price,
+      location: formData.remote ? 'Remote' : formData.location,
     };
 
     if (formData.category === 'offer') {
@@ -38,13 +41,16 @@ const AdminPage = ({ onPageChange }) => {
     }
 
     addEntry(newEntry);
-    setFormData({ name: '', category: 'offer', title: '', description: '', telegram: '', email: '', price: '' });
+    setFormData({ name: '', category: 'offer', title: '', description: '', telegram: '', email: '', price: '', location: '', remote: false });
   };
 
   const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
     setFormData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [name]: type === 'checkbox' ? checked : value,
+      // Clear location when remote is checked
+      ...(name === 'remote' && checked ? { location: '' } : {})
     }));
   };
 
@@ -55,7 +61,14 @@ const AdminPage = ({ onPageChange }) => {
           Submit Entry
         </h1>
         <p className="text-lg text-sanctuary-600">
-          Add your skills or needs to the marketplace
+          Add your skills or needs to this Marketplace. <a 
+            href="https://andrej-berlin.super.site/skill-mapping" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-sanctuary-900 underline hover:text-sanctuary-700 transition-colors duration-200"
+          >
+            Click here for a guided exercise to uncover your skills.
+          </a>
         </p>
       </div>
 
@@ -178,6 +191,36 @@ const AdminPage = ({ onPageChange }) => {
                 className="w-full px-3 py-2 border border-sanctuary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sanctuary-500 focus:border-transparent"
                 placeholder="e.g., $50, $100/hr, Free, Let's talk"
               />
+            </div>
+
+            <div>
+              <label htmlFor="location" className="block text-sm font-medium text-sanctuary-700 mb-2">
+                Location (optional)
+              </label>
+              <input
+                type="text"
+                id="location"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                disabled={formData.remote}
+                className={`w-full px-3 py-2 border border-sanctuary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sanctuary-500 focus:border-transparent ${
+                  formData.remote ? 'bg-gray-50 text-gray-400' : ''
+                }`}
+                placeholder="e.g., Berlin, Germany"
+              />
+              <div className="mt-2">
+                <label className="inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    name="remote"
+                    checked={formData.remote}
+                    onChange={handleChange}
+                    className="rounded border-sanctuary-300 text-sanctuary-600 focus:ring-sanctuary-500"
+                  />
+                  <span className="ml-2 text-sm text-sanctuary-700">Remote</span>
+                </label>
+              </div>
             </div>
 
             <button
