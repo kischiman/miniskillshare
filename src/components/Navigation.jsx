@@ -4,6 +4,7 @@ const Navigation = ({ currentPage, onPageChange }) => {
   const pages = [
     { id: 'offers', label: 'Offers' },
     { id: 'needs', label: 'Needs' },
+    { id: 'experts', label: 'Experts' },
     { id: 'admin', label: 'Submit Entry' }
   ];
 

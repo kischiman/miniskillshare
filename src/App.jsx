@@ -3,6 +3,7 @@ import { MarketplaceProvider } from './context/MarketplaceContext';
 import Navigation from './components/Navigation';
 import OffersPage from './pages/OffersPage';
 import NeedsPage from './pages/NeedsPage';
+import ExpertsPage from './pages/ExpertsPage';
 import AdminPage from './pages/AdminPage';
 import DashboardPage from './pages/DashboardPage';
 
@@ -15,6 +16,8 @@ function App() {
         return <OffersPage />;
       case 'needs':
         return <NeedsPage />;
+      case 'experts':
+        return <ExpertsPage />;
       case 'admin':
         return <AdminPage onPageChange={setCurrentPage} />;
       case 'dashboard':
