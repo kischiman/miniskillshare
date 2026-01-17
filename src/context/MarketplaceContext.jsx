@@ -287,9 +287,161 @@ const initialData = [
     price: ''
   },
   
-  // Anastasia's offerings
+  // Projects from CSV
   {
     id: '21',
+    name: 'Justina',
+    category: 'project',
+    services: null,
+    skills: null,
+    needs: null,
+    project_title: 'Human–Plant Interaction & Altered States',
+    type: 'project',
+    description: 'Exploring relationships between humans and local plants in Chiang Mai through care, symbolism, and altered states of perception. Participants will be paired with specific plants during facilitated workshops, engaging in ongoing relational practices.',
+    telegram: '',
+    email: '',
+    price: '',
+    url: 'https://www.linkedin.com/in/justina-svitraite-333482232/'
+  },
+  {
+    id: '22',
+    name: 'Justina',
+    category: 'project',
+    services: null,
+    skills: null,
+    needs: null,
+    project_title: 'User Research in Local Chiang Mai Context',
+    type: 'project',
+    description: 'Conducting user research within the local Chiang Mai context to understand cultural, social, and behavioral patterns. Will engage local participants through interviews, observation, and lightweight testing.',
+    telegram: '',
+    email: '',
+    price: '',
+    url: ''
+  },
+  {
+    id: '23',
+    name: 'Anastasia',
+    category: 'project',
+    services: null,
+    skills: null,
+    needs: null,
+    project_title: 'Privacy-Preserving Calendar Matching App',
+    type: 'project',
+    description: 'Testing how residency influences project development. Building a privacy-preserving calendar matching app and membership curation mechanism while experimenting with daily check-ins.',
+    telegram: '',
+    email: '',
+    price: '',
+    url: ''
+  },
+  {
+    id: '28',
+    name: 'Jordi Pinyana',
+    category: 'project',
+    services: null,
+    skills: null,
+    needs: null,
+    project_title: 'Democratic Information Gathering',
+    type: 'project',
+    description: 'Translating people\'s feelings, ideas, and environmental information to socially relevant questions using sentiment/information gathering platforms like pol.is for democratic participation.',
+    telegram: '',
+    email: '',
+    price: '',
+    url: ''
+  },
+  {
+    id: '29',
+    name: 'Jane Landa',
+    category: 'project',
+    services: null,
+    skills: null,
+    needs: null,
+    project_title: '100 Ads to the People',
+    type: 'project',
+    description: 'Creating 100 advertisements to help people. Focus on understanding others\' passions, skills, desired skills and what drains their soul for future project collaborations.',
+    telegram: '',
+    email: '',
+    price: '',
+    url: ''
+  },
+  {
+    id: '30',
+    name: 'tae',
+    category: 'project',
+    services: null,
+    skills: null,
+    needs: null,
+    project_title: 'RaidGuild Operations for Q1',
+    type: 'project',
+    description: 'Revenue generating business focus with operations cleanup and automated processes. No projects, only sustainable businesses!',
+    telegram: '',
+    email: '',
+    price: '',
+    url: ''
+  },
+  {
+    id: '31',
+    name: 'Matt Shams',
+    category: 'project',
+    services: null,
+    skills: null,
+    needs: null,
+    project_title: 'Longevity Spaces for LIZ',
+    type: 'project',
+    description: 'Developing a spec and semi-prototype of longevity spaces. Work in progress focused on technological alignment with human efficiency and equity.',
+    telegram: '',
+    email: '',
+    price: '',
+    url: 'https://mattshams.com/'
+  },
+  {
+    id: '32',
+    name: 'Anna Zhu',
+    category: 'project',
+    services: null,
+    skills: null,
+    needs: null,
+    project_title: 'M8 MVP Sprint',
+    type: 'project',
+    description: 'Sprint to release MVP for M8 platform with user testing. Currently about 1 week of full-time work needed to release MVP.',
+    telegram: '',
+    email: '',
+    price: '',
+    url: 'https://m8.life'
+  },
+  {
+    id: '33',
+    name: 'Stacey Fronek',
+    category: 'project',
+    services: null,
+    skills: null,
+    needs: null,
+    project_title: 'Product Story Refinement',
+    type: 'project',
+    description: 'Share product features and overall narrative to get feedback. Focus on connecting with people and refining the story to create resonance with users.',
+    telegram: '',
+    email: '',
+    price: '',
+    url: 'https://shesthefronz.com'
+  },
+  {
+    id: '34',
+    name: 'Andrej',
+    category: 'project',
+    services: null,
+    skills: null,
+    needs: null,
+    project_title: 'Sanctuary Sustainable Business Models',
+    type: 'project',
+    description: 'Developing sustainable business models for Sanctuary and showing its value to the outside world. Focus on testing what people will pay for and prototyping solutions.',
+    telegram: '',
+    email: '',
+    price: '',
+    url: ''
+  },
+  
+  // Anastasia's offerings
+  {
+    id: '35',
     name: 'Anastasia',
     category: 'offer',
     services: 'Safe Space Creation and Collaboration',
@@ -302,7 +454,7 @@ const initialData = [
     price: ''
   },
   {
-    id: '22',
+    id: '36',
     name: 'Anastasia',
     category: 'offer',
     services: 'Organization and Coordination',
@@ -315,7 +467,7 @@ const initialData = [
     price: ''
   },
   {
-    id: '23',
+    id: '37',
     name: 'Anastasia',
     category: 'offer',
     services: 'Business Development and Growth',
@@ -328,7 +480,7 @@ const initialData = [
     price: ''
   },
   {
-    id: '24',
+    id: '38',
     name: 'Anastasia',
     category: 'offer',
     services: 'Go-to-Market Strategy',
@@ -365,6 +517,7 @@ export const MarketplaceProvider = ({ children }) => {
 
   const getOffers = () => entries.filter(entry => entry.type === 'offer');
   const getNeeds = () => entries.filter(entry => entry.type === 'need');
+  const getProjects = () => entries.filter(entry => entry.type === 'project');
 
   const value = {
     entries,
@@ -373,6 +526,7 @@ export const MarketplaceProvider = ({ children }) => {
     deleteEntry,
     getOffers,
     getNeeds,
+    getProjects,
   };
 
   return (

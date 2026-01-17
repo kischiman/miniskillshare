@@ -8,19 +8,27 @@ const EditModal = ({ entry, isOpen, onClose, onSave }) => {
     description: '',
     telegram: '',
     email: '',
-    price: ''
+    price: '',
+    url: ''
   });
 
   useEffect(() => {
     if (entry) {
+      const getTitle = () => {
+        if (entry.type === 'offer') return entry.services || '';
+        if (entry.type === 'project') return entry.project_title || '';
+        return entry.needs || '';
+      };
+      
       setFormData({
         name: entry.name || '',
         category: entry.type || 'offer',
-        title: entry.type === 'offer' ? (entry.services || '') : (entry.needs || ''),
+        title: getTitle(),
         description: entry.description || '',
         telegram: entry.telegram || '',
         email: entry.email || '',
-        price: entry.price || ''
+        price: entry.price || '',
+        url: entry.url || ''
       });
     }
   }, [entry]);
@@ -45,16 +53,24 @@ const EditModal = ({ entry, isOpen, onClose, onSave }) => {
       telegram: formData.telegram,
       email: formData.email,
       price: formData.price,
+      url: formData.url
     };
 
     if (formData.category === 'offer') {
       updatedEntry.services = formData.title;
       updatedEntry.skills = '';
       updatedEntry.needs = null;
+      updatedEntry.project_title = null;
+    } else if (formData.category === 'project') {
+      updatedEntry.project_title = formData.title;
+      updatedEntry.services = null;
+      updatedEntry.skills = null;
+      updatedEntry.needs = null;
     } else {
       updatedEntry.needs = formData.title;
       updatedEntry.services = null;
       updatedEntry.skills = null;
+      updatedEntry.project_title = null;
     }
 
     onSave(updatedEntry);
@@ -107,12 +123,13 @@ const EditModal = ({ entry, isOpen, onClose, onSave }) => {
             >
               <option value="offer">Offer</option>
               <option value="need">Need</option>
+              <option value="project">Project</option>
             </select>
           </div>
 
           <div>
             <label htmlFor="title" className="block text-sm font-medium text-sanctuary-700 mb-1">
-              {formData.category === 'offer' ? 'Service/Skill' : 'Need'}
+              {formData.category === 'offer' ? 'Service/Skill' : formData.category === 'project' ? 'Project Title' : 'Need'}
             </label>
             <input
               type="text"
@@ -138,6 +155,23 @@ const EditModal = ({ entry, isOpen, onClose, onSave }) => {
               className="w-full px-3 py-2 border border-sanctuary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sanctuary-500 focus:border-transparent text-sm"
             />
           </div>
+
+          {formData.category === 'project' && (
+            <div>
+              <label htmlFor="url" className="block text-sm font-medium text-sanctuary-700 mb-1">
+                Project URL
+              </label>
+              <input
+                type="url"
+                id="url"
+                name="url"
+                value={formData.url}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-sanctuary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sanctuary-500 focus:border-transparent text-sm"
+                placeholder="https://example.com"
+              />
+            </div>
+          )}
 
           <div className="grid grid-cols-2 gap-4">
             <div>

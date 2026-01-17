@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMarketplace } from '../context/MarketplaceContext';
 
-const ExpertsPage = () => {
+const ExpertsPage = ({ selectedExpert, onClearSelection }) => {
   const { entries } = useMarketplace();
 
   // Group entries by person name
@@ -10,45 +10,61 @@ const ExpertsPage = () => {
       acc[entry.name] = {
         name: entry.name,
         offers: [],
-        needs: []
+        needs: [],
+        projects: []
       };
     }
     
     if (entry.type === 'offer') {
       acc[entry.name].offers.push(entry);
-    } else {
+    } else if (entry.type === 'need') {
       acc[entry.name].needs.push(entry);
+    } else if (entry.type === 'project') {
+      acc[entry.name].projects.push(entry);
     }
     
     return acc;
   }, {});
 
   const experts = Object.values(expertProfiles);
+  
+  // Filter experts if a specific one is selected
+  const displayedExperts = selectedExpert 
+    ? experts.filter(expert => expert.name === selectedExpert)
+    : experts;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-light text-sanctuary-900 mb-4">
-          Experts
+          {selectedExpert ? selectedExpert : 'Experts'}
         </h1>
         <p className="text-lg text-sanctuary-600">
-          Meet the people behind the offers and needs
+          {selectedExpert ? `Profile for ${selectedExpert}` : 'Meet the people behind the offers, needs, and projects'}
         </p>
+        {selectedExpert && (
+          <button
+            onClick={onClearSelection}
+            className="mt-4 px-4 py-2 text-sm font-medium text-sanctuary-700 bg-sanctuary-100 rounded-md hover:bg-sanctuary-200 transition-colors duration-200"
+          >
+            ← View All Experts
+          </button>
+        )}
       </div>
 
-      {experts.length === 0 ? (
+      {displayedExperts.length === 0 ? (
         <div className="text-center py-16">
           <p className="text-sanctuary-500 text-lg">No experts available yet.</p>
         </div>
       ) : (
         <div className="space-y-8">
-          {experts.map((expert) => (
+          {displayedExperts.map((expert) => (
             <div key={expert.name} className="bg-white border border-sanctuary-200 rounded-lg p-6">
               <h2 className="text-2xl font-semibold text-sanctuary-900 mb-6">
                 {expert.name}
               </h2>
               
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Offers Section */}
                 {expert.offers.length > 0 && (
                   <div>
@@ -117,6 +133,54 @@ const ExpertsPage = () => {
                               <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded">
                                 {need.location}
                               </span>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Projects Section */}
+                {expert.projects.length > 0 && (
+                  <div>
+                    <h3 className="text-lg font-medium text-sanctuary-700 mb-4 flex items-center">
+                      <svg className="w-5 h-5 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                      </svg>
+                      Projects ({expert.projects.length})
+                    </h3>
+                    <div className="space-y-3">
+                      {expert.projects.map((project) => (
+                        <div key={project.id} className="border border-purple-100 rounded-md p-4 bg-purple-25">
+                          <h4 className="font-medium text-sanctuary-900 mb-2">
+                            {project.project_title}
+                          </h4>
+                          {project.description && (
+                            <p className="text-sm text-sanctuary-600 mb-2">
+                              {project.description}
+                            </p>
+                          )}
+                          <div className="flex flex-wrap gap-2 text-xs">
+                            {project.price && (
+                              <span className="bg-sanctuary-100 text-sanctuary-700 px-2 py-1 rounded">
+                                {project.price}
+                              </span>
+                            )}
+                            {project.location && (
+                              <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                                {project.location}
+                              </span>
+                            )}
+                            {project.url && (
+                              <a
+                                href={project.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="bg-purple-100 text-purple-700 px-2 py-1 rounded hover:bg-purple-200 transition-colors duration-200"
+                              >
+                                🔗 Link
+                              </a>
                             )}
                           </div>
                         </div>

@@ -4,26 +4,35 @@ import Navigation from './components/Navigation';
 import OffersPage from './pages/OffersPage';
 import NeedsPage from './pages/NeedsPage';
 import ExpertsPage from './pages/ExpertsPage';
+import ProjectsPage from './pages/ProjectsPage';
 import AdminPage from './pages/AdminPage';
 import DashboardPage from './pages/DashboardPage';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('offers');
+  const [currentPage, setCurrentPage] = useState('projects');
+  const [selectedExpert, setSelectedExpert] = useState(null);
+
+  const navigateToExpert = (expertName) => {
+    setSelectedExpert(expertName);
+    setCurrentPage('experts');
+  };
 
   const renderPage = () => {
     switch (currentPage) {
       case 'offers':
-        return <OffersPage />;
+        return <OffersPage onExpertClick={navigateToExpert} />;
       case 'needs':
-        return <NeedsPage />;
+        return <NeedsPage onExpertClick={navigateToExpert} />;
       case 'experts':
-        return <ExpertsPage />;
+        return <ExpertsPage selectedExpert={selectedExpert} onClearSelection={() => setSelectedExpert(null)} />;
+      case 'projects':
+        return <ProjectsPage onExpertClick={navigateToExpert} />;
       case 'admin':
         return <AdminPage onPageChange={setCurrentPage} />;
       case 'dashboard':
         return <DashboardPage />;
       default:
-        return <OffersPage />;
+        return <ProjectsPage onExpertClick={navigateToExpert} />;
     }
   };
 

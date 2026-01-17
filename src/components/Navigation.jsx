@@ -2,6 +2,7 @@ import React from 'react';
 
 const Navigation = ({ currentPage, onPageChange }) => {
   const pages = [
+    { id: 'projects', label: 'Projects & Experiments' },
     { id: 'offers', label: 'Offers' },
     { id: 'needs', label: 'Needs' },
     { id: 'experts', label: 'Experts' },
@@ -14,7 +15,7 @@ const Navigation = ({ currentPage, onPageChange }) => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <h1 className="text-2xl font-semibold text-sanctuary-900 tracking-tight">
-              Marketplace
+              Bounty Board
             </h1>
           </div>
           

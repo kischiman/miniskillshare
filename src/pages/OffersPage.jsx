@@ -2,7 +2,7 @@ import React from 'react';
 import { useMarketplace } from '../context/MarketplaceContext';
 import Card from '../components/Card';
 
-const OffersPage = () => {
+const OffersPage = ({ onExpertClick }) => {
   const { getOffers } = useMarketplace();
   const offers = getOffers();
 
@@ -21,7 +21,7 @@ const OffersPage = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {offers.map((offer) => (
-            <Card key={offer.id} entry={offer} type="offer" />
+            <Card key={offer.id} entry={offer} type="offer" onExpertClick={onExpertClick} />
           ))}
         </div>
       )}

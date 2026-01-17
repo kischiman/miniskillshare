@@ -12,7 +12,8 @@ const AdminPage = ({ onPageChange }) => {
     email: '',
     price: '',
     location: '',
-    remote: false
+    remote: false,
+    url: ''
   });
 
   const handleSubmit = (e) => {
@@ -28,20 +29,28 @@ const AdminPage = ({ onPageChange }) => {
       email: formData.email,
       price: formData.price,
       location: formData.remote ? 'Remote' : formData.location,
+      url: formData.url
     };
 
     if (formData.category === 'offer') {
       newEntry.services = formData.title;
       newEntry.skills = '';
       newEntry.needs = null;
+      newEntry.project_title = null;
+    } else if (formData.category === 'project') {
+      newEntry.project_title = formData.title;
+      newEntry.services = null;
+      newEntry.skills = null;
+      newEntry.needs = null;
     } else {
       newEntry.needs = formData.title;
       newEntry.services = null;
       newEntry.skills = null;
+      newEntry.project_title = null;
     }
 
     addEntry(newEntry);
-    setFormData({ name: '', category: 'offer', title: '', description: '', telegram: '', email: '', price: '', location: '', remote: false });
+    setFormData({ name: '', category: 'offer', title: '', description: '', telegram: '', email: '', price: '', location: '', remote: false, url: '' });
   };
 
   const handleChange = (e) => {
@@ -61,7 +70,7 @@ const AdminPage = ({ onPageChange }) => {
           Submit Entry
         </h1>
         <p className="text-lg text-sanctuary-600">
-          Add your skills or needs to this Marketplace. <a 
+          Add your skills or needs to the Bounty Board. <a 
             href="https://andrej-berlin.super.site/skill-mapping" 
             target="_blank" 
             rel="noopener noreferrer"
@@ -109,12 +118,13 @@ const AdminPage = ({ onPageChange }) => {
               >
                 <option value="offer">Offer</option>
                 <option value="need">Need</option>
+                <option value="project">Project</option>
               </select>
             </div>
 
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-sanctuary-700 mb-2">
-                {formData.category === 'offer' ? 'Service/Skill Title' : 'What you need'}
+                {formData.category === 'offer' ? 'Service/Skill Title' : formData.category === 'project' ? 'Project Title' : 'What you need'}
               </label>
               <input
                 type="text"
@@ -123,7 +133,7 @@ const AdminPage = ({ onPageChange }) => {
                 value={formData.title}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-sanctuary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sanctuary-500 focus:border-transparent"
-                placeholder={formData.category === 'offer' ? 'e.g., Web Development, Photography' : 'e.g., Garden design help'}
+                placeholder={formData.category === 'offer' ? 'e.g., Web Development, Photography' : formData.category === 'project' ? 'e.g., Sanctuary Garden Initiative' : 'e.g., Garden design help'}
                 required
               />
             </div>
@@ -142,6 +152,23 @@ const AdminPage = ({ onPageChange }) => {
                 placeholder="Additional details about your offer or need"
               />
             </div>
+
+            {formData.category === 'project' && (
+              <div>
+                <label htmlFor="url" className="block text-sm font-medium text-sanctuary-700 mb-2">
+                  Project URL (optional)
+                </label>
+                <input
+                  type="url"
+                  id="url"
+                  name="url"
+                  value={formData.url}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-sanctuary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sanctuary-500 focus:border-transparent"
+                  placeholder="https://example.com"
+                />
+              </div>
+            )}
 
             <div>
               <label htmlFor="telegram" className="block text-sm font-medium text-sanctuary-700 mb-2">

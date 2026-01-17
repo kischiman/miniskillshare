@@ -15,7 +15,8 @@ const DashboardPage = () => {
     description: '',
     telegram: '',
     email: '',
-    price: ''
+    price: '',
+    url: ''
   });
 
   const handleEdit = (entry) => {
@@ -47,20 +48,28 @@ const DashboardPage = () => {
       telegram: formData.telegram,
       email: formData.email,
       price: formData.price,
+      url: formData.url
     };
 
     if (formData.category === 'offer') {
       newEntry.services = formData.title;
       newEntry.skills = '';
       newEntry.needs = null;
+      newEntry.project_title = null;
+    } else if (formData.category === 'project') {
+      newEntry.project_title = formData.title;
+      newEntry.services = null;
+      newEntry.skills = null;
+      newEntry.needs = null;
     } else {
       newEntry.needs = formData.title;
       newEntry.services = null;
       newEntry.skills = null;
+      newEntry.project_title = null;
     }
 
     addEntry(newEntry);
-    setFormData({ name: '', category: 'offer', title: '', description: '', telegram: '', email: '', price: '' });
+    setFormData({ name: '', category: 'offer', title: '', description: '', telegram: '', email: '', price: '', url: '' });
   };
 
   const handleChange = (e) => {
@@ -77,7 +86,7 @@ const DashboardPage = () => {
           Data Dashboard
         </h1>
         <p className="text-lg text-sanctuary-600">
-          Manage all marketplace entries
+          Manage all Bounty Board entries
         </p>
       </div>
 
@@ -118,12 +127,13 @@ const DashboardPage = () => {
                 >
                   <option value="offer">Offer</option>
                   <option value="need">Need</option>
+                  <option value="project">Project</option>
                 </select>
               </div>
 
               <div>
                 <label htmlFor="title" className="block text-sm font-medium text-sanctuary-700 mb-1">
-                  {formData.category === 'offer' ? 'Service/Skill' : 'Need'}
+                  {formData.category === 'offer' ? 'Service/Skill' : formData.category === 'project' ? 'Project Title' : 'Need'}
                 </label>
                 <input
                   type="text"
@@ -181,6 +191,23 @@ const DashboardPage = () => {
                 </div>
               </div>
 
+              {formData.category === 'project' && (
+                <div>
+                  <label htmlFor="url" className="block text-sm font-medium text-sanctuary-700 mb-1">
+                    Project URL
+                  </label>
+                  <input
+                    type="url"
+                    id="url"
+                    name="url"
+                    value={formData.url}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-sanctuary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sanctuary-500 focus:border-transparent text-sm"
+                    placeholder="https://example.com"
+                  />
+                </div>
+              )}
+
               <div>
                 <label htmlFor="price" className="block text-sm font-medium text-sanctuary-700 mb-1">
                   Price
@@ -224,9 +251,11 @@ const DashboardPage = () => {
                       <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
                         entry.type === 'offer' 
                           ? 'bg-green-100 text-green-800' 
+                          : entry.type === 'project'
+                          ? 'bg-purple-100 text-purple-800'
                           : 'bg-blue-100 text-blue-800'
                       }`}>
-                        {entry.type === 'offer' ? 'Offer' : 'Need'}
+                        {entry.type === 'offer' ? 'Offer' : entry.type === 'project' ? 'Project' : 'Need'}
                       </span>
                       {entry.price && (
                         <span className="px-2 py-1 text-xs font-medium text-sanctuary-700 bg-sanctuary-100 rounded">
@@ -235,7 +264,7 @@ const DashboardPage = () => {
                       )}
                     </div>
                     <p className="text-sm font-medium text-sanctuary-800 mb-1">
-                      {entry.type === 'offer' ? entry.services : entry.needs}
+                      {entry.type === 'offer' ? entry.services : entry.type === 'project' ? entry.project_title : entry.needs}
                     </p>
                     {entry.description && (
                       <p className="text-xs text-sanctuary-600 mb-2">{entry.description}</p>
